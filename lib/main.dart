@@ -5,7 +5,6 @@ import 'package:apiwithstatemangement/bloc/state_block.dart';
 import 'package:apiwithstatemangement/model/time_model.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
@@ -23,24 +22,12 @@ class DigitalWatchPage extends StatefulWidget {
 }
 
 class _DigitalWatchPageState extends State<DigitalWatchPage> {
-  String _time = "";
-  String _date = "";
-  String _dayOfWeek = "";
-  String _timeZone = "";
-  int _year = 0;
-  int _month = 0;
-  int _day = 0;
-  int _hour = 0;
-  int _minute = 0;
-  int _seconds = 0;
-  int _milliSeconds = 0;
-  String _dateTime = "";
-  Timer? _timer;
-
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<TimeBloc>(context).add(GetingTimeEvent());
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      BlocProvider.of<TimeBloc>(context).add(GetingTimeEvent());
+    });
   }
 
   @override
@@ -62,14 +49,13 @@ class _DigitalWatchPageState extends State<DigitalWatchPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(_time,
+                Text("afsafd",
                     style:
                         TextStyle(fontSize: 48, fontWeight: FontWeight.bold)),
                 SizedBox(height: 10),
-                Text("Date: ${mData.date!=null ? mData.date  : 00 }",
+                Text("Date: ${mData.date != null ? mData.date : 00}",
                     style: TextStyle(fontSize: 24)),
-                Text("Day: ${mData.dayOfWeek}",
-                    style: TextStyle(fontSize: 24)),
+                Text("Day: ${mData.dayOfWeek}", style: TextStyle(fontSize: 24)),
                 Text("Time Zone: ${mData.timeZone}",
                     style: TextStyle(fontSize: 20)),
                 SizedBox(height: 20),
@@ -77,8 +63,7 @@ class _DigitalWatchPageState extends State<DigitalWatchPage> {
                 Text("Month: ${mData.month}", style: TextStyle(fontSize: 20)),
                 Text("Day: ${mData.day}", style: TextStyle(fontSize: 20)),
                 Text("Hour: ${mData.hour}", style: TextStyle(fontSize: 20)),
-                Text("Minute: ${mData.minute}",
-                    style: TextStyle(fontSize: 20)),
+                Text("Minute: ${mData.minute}", style: TextStyle(fontSize: 20)),
                 Text("Seconds: ${mData.seconds}",
                     style: TextStyle(fontSize: 20)),
                 Text("Milliseconds: ${mData.milliSeconds}",

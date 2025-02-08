@@ -6,7 +6,7 @@ import 'package:apiwithstatemangement/model/time_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiHitter {
-  var resData;
+  var finaldata;
   Future<TimeModel> ApiGeter({required String jsonUrl}) async {
     var Parsed_url = Uri.parse(jsonUrl);
     var response = await http.get(Parsed_url);
@@ -16,15 +16,17 @@ class ApiHitter {
 
       log(response.body);
 
-    resData = jsonDecode(response.body);
+    var  resData = jsonDecode(response.body);
+
+       finaldata= TimeModel.fromJson(resData);
 
       //// we shourld remove this to make it
 
-      return resData!;
+      return finaldata;
     } else {
       log("Api Failed");
 
-      return resData!;
+      return finaldata;
     }
   }
 }

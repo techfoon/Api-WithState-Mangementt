@@ -11,17 +11,17 @@ class TimeBloc extends Bloc<TimeEvent, TimeState> {
   ApiHitter apiHelper;
 
   TimeBloc({required this.apiHelper}) : super(TimeInitialState()) {
-    on<GetingTimeEvent>((event, State) {
+    on<GetingTimeEvent>((event, State) async {
       emit(TimeLodingState());
 
-      var resJson = apiHelper.ApiGeter(jsonUrl: Urlkeys.urlkey);
+      var resJson =  await apiHelper.ApiGeter(jsonUrl: Urlkeys.urlkey);
 
             
 
      
 
       if (resJson != null) {
-        emit(TimeLoadedState(bresData: TimeModel.fromJson( apiHelper.resData)));
+  emit(TimeLoadedState(bresData: resJson));
       } else {
         emit(TimeErrorState(msg: "uhh.. No!!, Error Occured."));
       }
